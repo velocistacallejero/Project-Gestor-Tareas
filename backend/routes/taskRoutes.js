@@ -1,0 +1,22 @@
+const express = require('express');
+const router = express.Router();
+const {
+  getTasks,
+  createTask,
+  updateTask,
+  deleteTask,
+  updateTaskLocation
+} = require('../controllers/taskController');
+const { protect } = require('../middlewares/auth');
+
+router.route('/')
+  .get(protect, getTasks)
+  .post(protect, createTask);
+
+router.route('/:id')
+  .put(protect, updateTask)
+  .delete(protect, deleteTask);
+
+router.put('/:id/location', protect, updateTaskLocation);
+
+module.exports = router;
